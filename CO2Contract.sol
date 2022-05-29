@@ -63,7 +63,7 @@ contract CO2Token is ERC20, ERC20Detailed {
 
     // function to allocate tokens from government treasury to individual corporations
     function allocate(uint pctTotalAllocation) public onlyOwner {
-        for(uint8 i=0; i< noOfCorporations; i++) {
+        for(uint8 i=1; i< noOfCorporations; i++) {
             uint tokensForAllocation = balances[corporateIndex[i]].pctAllocated * balances[owner].CO2tokens * pctTotalAllocation;
             balances[owner].CO2tokens -= tokensForAllocation;
             balances[corporateIndex[i]].CO2tokens += tokensForAllocation;
