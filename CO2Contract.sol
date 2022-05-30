@@ -1,4 +1,4 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.5.5;
 
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/contracts/token/ERC20/ERC20.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/contracts/token/ERC20/ERC20Detailed.sol";
@@ -77,13 +77,51 @@ contract CO2Token is ERC20, ERC20Detailed {
         sellers[msg.sender].name = balances[msg.sender].name;
         sellers[msg.sender].tokensForSale += _tokensForSale;
         sellers[msg.sender].pricePerToken = _pricePerToken;
+
+        sellerIndex[noOfSellers] = msg.sender;
+        noOfSellers++;
     }
 
-    // function to display all the sellers offering their tokens
+    // function to display the sellers offering their tokens
     function viewSellInfo() public view returns (string memory, uint) {
         corporation memory sellerInfo = balances[msg.sender];
         return (sellerInfo.name, sellerInfo.CO2tokens);
     }
+
+    //function to view all sellers in the market with their tokens and their prices. This should be called when Buy tab is clicked
+    function viewSellers() public returns (address[] memory, uint[] memory, uint[] memory) {
+        address[] memory _sellerAddresses = new address[](noOfSellers);
+        string[] memory _name = new string[](noOfSellers);
+        uint[] memory _tokens = new uint[](noOfSellers);
+        uint[] memory _priceTokens = new uint[](noOfSellers);
+
+        for (uint i = 0; i< noOfSellers; i++) {
+            Seller storage _seller = sellers[sellerIndex[i]];
+            _sellerAddresses[i] = _seller.sellerAddress;
+            _name[i] = _seller.name;
+            _tokens[i] = _seller.tokensForSale;
+            _priceTokens[i] = _seller.pricePerToken;
+        }
+
+        return (_sellerAddresses, _tokens, _priceTokens);
+    }
+
+
+    //function to view all sellers in the market with their tokens and their prices
+    // function viewDash() public returns (address[] memory, uint[] memory) {
+    //     address[] memory _dashAddresses = new address[](noOfCorporations);
+    //     // string[] memory _name = new string[](noOfCorporations);
+    //     uint[] memory _dashTokens = new uint[](noOfCorporations);
+
+    //     for (uint i = 0; i< noOfCorporations; i++) {
+    //         corporation storage _corporation = balances[corporateIndex[i]];
+    //         _dashAddresses[i] = corporateIndex;
+    //         _dashTokens[i] = _corporation.CO2tokens;
+
+    //     }
+
+    //     return (_dashAddresses, _dashTokens);
+    // }
 
     // function to buy tokens
     function executeBuy(address payable sellerAddress, uint _tokens, uint _pricePerToken) public payable{
