@@ -11,6 +11,7 @@ contract CO2Token is ERC20, ERC20Detailed {
     uint noOfSellers = 0;
 
     struct corporation {
+        address corporationAddress;
         string name;
         string logo;
         uint pctAllocated;
@@ -29,7 +30,7 @@ contract CO2Token is ERC20, ERC20Detailed {
     mapping (address => corporation) public balances;
 
     mapping (uint => address) private sellerIndex;
-    mapping (address => Seller) sellers;
+    mapping (address => Seller) public sellers;
 
     modifier onlyOwner {
         require(msg.sender == owner,"You do not have rights. Pleae contact your jurisdiction office!!!");
@@ -40,6 +41,7 @@ contract CO2Token is ERC20, ERC20Detailed {
         owner = msg.sender;
         corporateIndex[noOfCorporations] = owner;
         noOfCorporations++;
+        balances[owner].corporationAddress = owner;
         balances[owner].name = name;
         mint(owner,initialSupply);
         // balances[owner].CO2tokens = initialSupply;
@@ -55,6 +57,7 @@ contract CO2Token is ERC20, ERC20Detailed {
 
     // function to add Corporation to the mapping. This can be only performed by the contract owner
     function addCorporation(address corpAddress, string memory name, uint pct_Allocated) public onlyOwner {
+        balances[corpAddress].corporationAddress = corpAddress;
         balances[corpAddress].name = name;
         balances[corpAddress].pctAllocated = pct_Allocated;
         corporateIndex[noOfCorporations] = corpAddress;
@@ -62,9 +65,11 @@ contract CO2Token is ERC20, ERC20Detailed {
     }
 
     // function to allocate tokens from government treasury to individual corporations
-    function allocate(uint pctTotalAllocation) public onlyOwner {
+    // function allocate(uint pctTotalAllocation) public onlyOwner {
+        function allocate() public onlyOwner {
+        uint tokensForAllocation = balances[owner].CO2tokens / (noOfCorporations -1);
         for(uint8 i=1; i< noOfCorporations; i++) {
-            uint tokensForAllocation = balances[corporateIndex[i]].pctAllocated * balances[owner].CO2tokens * pctTotalAllocation;
+            // uint tokensForAllocation = (balances[corporateIndex[i]].pctAllocated) * (balances[owner].CO2tokens * pctTotalAllocation);
             balances[owner].CO2tokens -= tokensForAllocation;
             balances[corporateIndex[i]].CO2tokens += tokensForAllocation;
         }
@@ -72,7 +77,7 @@ contract CO2Token is ERC20, ERC20Detailed {
 
     // function to Sell your tokens
     function executeSell(uint _tokensForSale, uint _pricePerToken) public {
-        require (_tokensForSale < balances[msg.sender].CO2tokens, "You can not sell more tokens than you hold. Please try again with lower tokens.");
+        require (_tokensForSale <= balances[msg.sender].CO2tokens, "You can not sell more tokens than you hold. Please try again with lower tokens.");
         sellers[msg.sender].sellerAddress = msg.sender;
         sellers[msg.sender].name = balances[msg.sender].name;
         sellers[msg.sender].tokensForSale += _tokensForSale;
@@ -89,7 +94,7 @@ contract CO2Token is ERC20, ERC20Detailed {
     }
 
     //function to view all sellers in the market with their tokens and their prices. This should be called when Buy tab is clicked
-    function viewSellers() public returns (address[] memory, uint[] memory, uint[] memory) {
+    function viewSellers() public view returns (address[] memory, uint[] memory, uint[] memory) {
         address[] memory _sellerAddresses = new address[](noOfSellers);
         string[] memory _name = new string[](noOfSellers);
         uint[] memory _tokens = new uint[](noOfSellers);
@@ -107,29 +112,32 @@ contract CO2Token is ERC20, ERC20Detailed {
     }
 
 
-    //function to view all sellers in the market with their tokens and their prices
-    // function viewDash() public returns (address[] memory, uint[] memory) {
-    //     address[] memory _dashAddresses = new address[](noOfCorporations);
-    //     // string[] memory _name = new string[](noOfCorporations);
-    //     uint[] memory _dashTokens = new uint[](noOfCorporations);
+    // function to view all sellers in the market with their token balances
+    function viewDash() public view returns (address[] memory, uint[] memory) {
+        address[] memory _dashAddresses = new address[](noOfCorporations);
+        uint[] memory _tokens = new uint[](noOfCorporations);
 
-    //     for (uint i = 0; i< noOfCorporations; i++) {
-    //         corporation storage _corporation = balances[corporateIndex[i]];
-    //         _dashAddresses[i] = corporateIndex;
-    //         _dashTokens[i] = _corporation.CO2tokens;
 
-    //     }
+        for (uint i = 1; i< noOfCorporations; i++) {
+            corporation storage _corporation = balances[corporateIndex[i]];
+            _dashAddresses[i] = _corporation.corporationAddress;
+            _tokens[i] = _corporation.CO2tokens;
+        }
 
-    //     return (_dashAddresses, _dashTokens);
-    // }
+        return (_dashAddresses, _tokens);
+    }
 
     // function to buy tokens
-    function executeBuy(address payable sellerAddress, uint _tokens, uint _pricePerToken) public payable{
+    function executeBuy(address payable sellerAddress, uint _tokens, uint _pricePerToken) public payable {
         uint etherValue = _tokens * _pricePerToken;
         balances[msg.sender].CO2tokens += _tokens;
         balances[sellerAddress].CO2tokens -= _tokens;
-        owner.transfer(etherValue);
-        sellerAddress.transfer(etherValue);
+        // owner.transfer(etherValue);
+        // sellerAddress.transfer(etherValue);
+        // address(this).transfer()
+        // transferFrom(msg.sender,sellerAddress,etherValue);
     }
+    
+    function () external payable { }
 
 }
