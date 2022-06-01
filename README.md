@@ -23,7 +23,7 @@ PHP
 Solidity
 
 # Demostration
-![alt text](https://github.com/gurpreetsodhi/Columbia_Fintech_Project3/blob/master/Picture4.png?raw=true)
+![alt text](https://github.com/gurpreetsodhi/Columbia_Fintech_Project3/blob/master/Picture1.png?raw=true)
 ![alt text](https://github.com/gurpreetsodhi/Columbia_Fintech_Project3/blob/master/Picture2.png?raw=true)
 ![alt text](https://github.com/gurpreetsodhi/Columbia_Fintech_Project3/blob/master/Picture3.png?raw=true)
 ![alt text](https://github.com/gurpreetsodhi/Columbia_Fintech_Project3/blob/master/Picture4.png?raw=true)
