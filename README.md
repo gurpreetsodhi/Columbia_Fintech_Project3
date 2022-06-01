@@ -1,7 +1,7 @@
 # CO2 TokenEX v. 1.0
 This project tokenized CO2 certificates and created a Digital Marketplace in the blue ocean market.
 
-# Project Backroud: 
+# Project Background: 
 The Paris Agreement is a landmark international accord that was adopted by nearly every nation in 2015 to address climate change and its negative impacts. The agreement aims to substantially reduce global greenhouse gas emissions in an effort to limit the global temperature increase in this century to 2 degrees Celsius above preindustrial levels, while pursuing the means to limit the increase to 1.5 degrees.
  More than 200 countries have signed the Paris Climate Agreement. However, enacting and implementing the laws to meet the Accord requirements is the biggest hurdle. There is no standard mechanism of allocating Carbon certificates. In addition, this market lacks a secondary trading marketplace where companies with excess carbon certificates can sell to deficit companies. Lack of an efficient market has disincentivized the participants to be more efficient. 
 
@@ -22,7 +22,11 @@ JavaScript
 PHP
 Solidity
 
-
+# Demostration
+![alt text](https://github.com/2coconi/ch21/blob/main/Screen%20Shot%202022-05-22%20at%2010.43.05%20PM.png?raw=true)
+![alt text](https://github.com/2coconi/ch21/blob/main/Screen%20Shot%202022-05-22%20at%2010.43.22%20PM.png?raw=true)
+![alt text](https://github.com/2coconi/ch21/blob/main/Screen%20Shot%202022-05-22%20at%2010.44.44%20PM.png?raw=true)
+![alt text](https://github.com/2coconi/ch21/blob/main/Screen%20Shot%202022-05-22%20at%2010.48.07%20PM.png?raw=true)
 # Contributors
 Brought to you by Team #6:
 Gurpreet Singh Sodhi
