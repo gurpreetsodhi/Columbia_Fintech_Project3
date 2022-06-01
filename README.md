@@ -23,10 +23,10 @@ PHP
 Solidity
 
 # Demostration
-![alt text](https://github.com/2coconi/ch21/blob/main/Screen%20Shot%202022-05-22%20at%2010.43.05%20PM.png?raw=true)
-![alt text](https://github.com/2coconi/ch21/blob/main/Screen%20Shot%202022-05-22%20at%2010.43.22%20PM.png?raw=true)
-![alt text](https://github.com/2coconi/ch21/blob/main/Screen%20Shot%202022-05-22%20at%2010.44.44%20PM.png?raw=true)
-![alt text](https://github.com/2coconi/ch21/blob/main/Screen%20Shot%202022-05-22%20at%2010.48.07%20PM.png?raw=true)
+![alt text](https://github.com/gurpreetsodhi/Columbia_Fintech_Project3/blob/master/Picture4.png?raw=true)
+![alt text](https://github.com/gurpreetsodhi/Columbia_Fintech_Project3/blob/master/Picture2.png?raw=true)
+![alt text](https://github.com/gurpreetsodhi/Columbia_Fintech_Project3/blob/master/Picture3.png?raw=true)
+![alt text](https://github.com/gurpreetsodhi/Columbia_Fintech_Project3/blob/master/Picture4.png?raw=true)
 # Contributors
 Brought to you by Team #6:
 Gurpreet Singh Sodhi
